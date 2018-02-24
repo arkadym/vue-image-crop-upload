@@ -1,6 +1,6 @@
 <template>
-<div class="vue-image-crop-upload" v-show="value">
-    <div class="vicp-wrap">
+<div v-show="value" :class="'vue-image-crop-upload' + (posFixed ? ' pos-fixed' : '')">
+    <div :class="'vicp-wrap' + (posFixed ? ' pos-fixed' : '')">
         <div class="vicp-close" @click="off">
             <i class="vicp-icon4"></i>
         </div>
@@ -197,7 +197,11 @@ export default {
 		withCredentials: {
 			type: Boolean,
 			'default': false
-		}
+		},
+      posFixed: {
+          type: Boolean,
+        'default': true
+      }
     },
     data() {
         let that = this,

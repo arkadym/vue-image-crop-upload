@@ -35,8 +35,11 @@ $c_info: #07d;
 	}
 }
 
+.vue-image-crop-upload.pos-fixed, .vue-image-crop-upload .vicp-wrap.pos-fixed {
+  position: fixed;
+}
+
 .vue-image-crop-upload {
-	position: fixed;
 	display: block;
 	box-sizing: border-box;
 	z-index: 10000;
@@ -52,7 +55,6 @@ $c_info: #07d;
 
 	.vicp-wrap {
 		@include bs3;
-		position: fixed;
 		display: block;
 		box-sizing: border-box;
 		z-index: 10000;

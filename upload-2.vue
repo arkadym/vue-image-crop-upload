@@ -1,6 +1,6 @@
 <template>
-<div class="vue-image-crop-upload" v-show="value">
-	<div class="vicp-wrap">
+<div v-show="value" :class="'vue-image-crop-upload' + (isStandalone ? ' pos-fixed' : '')">
+	<div :class="'vicp-wrap' + (isStandalone ? ' pos-fixed' : '') + (isStandalone ? '' : ' hide-buttons') + (isStandalone ? ' show-border' : '')">
 		<div class="vicp-close" @click="off">
 			<i class="vicp-icon4"></i>
 		</div>
@@ -188,7 +188,11 @@ export default {
 		withCredentials: {
 			type: Boolean,
 			'default': false
-		}
+		},
+    standalone: {
+      type: Boolean,
+      'default': true
+    }
 	},
 	data() {
 		let that = this,
@@ -197,7 +201,8 @@ export default {
 				langType,
 				langExt,
 				width,
-				height
+				height,
+        standalone
 			} = that,
 			isSupported = true,
 			allowImgFormat = [
@@ -206,7 +211,8 @@ export default {
 			],
 			tempImgFormat = allowImgFormat.indexOf(imgFormat) === -1 ? 'jpg' : imgFormat,
 			lang = language[langType] ? language[langType] : language['en'],
-			mime = mimes[tempImgFormat];
+			mime = mimes[tempImgFormat],
+      isStandalone = standalone === 'false' ? false : standalone === 'true' ? true : standalone;
 		// 规范图片格式
 		that.imgFormat = tempImgFormat;
 
@@ -227,6 +233,8 @@ export default {
 			isSupported,
 			// 浏览器是否支持触屏事件
 			isSupportTouch: document.hasOwnProperty("ontouchstart"),
+
+      isStandalone,
 
 			// 步骤
 			step: 1, //1选择文件 2剪裁 3上传
@@ -936,8 +944,24 @@ export default {
     -webkit-transform: scale(1) translatey(0);
             transform: scale(1) translatey(0); } }
 
-.vue-image-crop-upload {
+.vue-image-crop-upload.pos-fixed, .vue-image-crop-upload .vicp-wrap.pos-fixed {
   position: fixed;
+}
+
+.vue-image-crop-upload .vicp-wrap.hide-buttons .vicp-close {
+  display: none;
+}
+
+.vue-image-crop-upload .vicp-wrap.hide-buttons .vicp-operate {
+  display: none;
+}
+
+.vue-image-crop-upload .vicp-wrap.show-border {
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.23);
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.23);
+}
+
+.vue-image-crop-upload {
   display: block;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -952,9 +976,6 @@ export default {
   -webkit-tap-highlight-color: transparent;
   -moz-tap-highlight-color: transparent; }
   .vue-image-crop-upload .vicp-wrap {
-    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.23);
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.23);
-    position: fixed;
     display: block;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
