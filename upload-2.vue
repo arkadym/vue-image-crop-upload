@@ -1,6 +1,6 @@
 <template>
 <div v-show="value" :class="'vue-image-crop-upload' + (isStandalone ? ' pos-fixed' : '')">
-	<div :class="'vicp-wrap' + (isStandalone ? ' pos-fixed' : '') + (isStandalone ? '' : ' hide-buttons') + (isStandalone ? ' show-border' : '')">
+	<div :class="'vicp-wrap' + (isStandalone ? ' pos-fixed show-border set-height' : ' hide-buttons')">
 		<div class="vicp-close" @click="off">
 			<i class="vicp-icon4"></i>
 		</div>
@@ -948,6 +948,10 @@ export default {
   position: fixed;
 }
 
+.vue-image-crop-upload .vicp-wrap.set-height {
+  height: 330px;
+}
+
 .vue-image-crop-upload .vicp-wrap.hide-buttons .vicp-close {
   display: none;
 }
@@ -986,7 +990,6 @@ export default {
     right: 0;
     margin: auto;
     width: 600px;
-    height: 330px;
     padding: 25px;
     background-color: #fff;
     border-radius: 2px;
