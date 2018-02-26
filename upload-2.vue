@@ -190,7 +190,7 @@ export default {
 			'default': false
 		},
     standalone: {
-      type: Boolean,
+      type: [Boolean, String],
       'default': true
     }
 	},
